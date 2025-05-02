@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# TP2 - NomPrenom - Gestion des branches
-=======
 # TP2 - Gestion des branches et fusions
->>>>>>> feature3
+Ceci est une description du projet
+Ajout temporaire dans feature1-alt
+
