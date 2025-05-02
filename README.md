@@ -1,4 +1,4 @@
-# TP2 - Gestion des branches et fusions
+# TP2 - Branches, merge et rebase - AgnettiDylan
 Ceci est une description du projet
 Ajout temporaire dans feature1-alt
 
