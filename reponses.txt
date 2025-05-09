@@ -1,0 +1,123 @@
+
+TP2 - Git : Branches, Merge & Rebase
+Nom : Agnetti
+Prénom : Dylan
+Date : 09/05/2025
+
+------------------------------------------------------------
+1. Initialisation du dépôt :
+------------------------------------------------------------
+mkdir TP2-Agnetti-Dylan
+cd TP2-Agnetti-Dylan
+git init
+git status
+
+# Résultat : dépôt vide initialisé, aucune modification à valider.
+
+------------------------------------------------------------
+2. Création de la branche develop avec premier commit :
+------------------------------------------------------------
+echo "# TP2 : Gestion des branches" > README.md
+git add README.md
+git commit -m "Initial commit : création du README"
+git branch -m develop
+
+------------------------------------------------------------
+3. Création de feature1 :
+------------------------------------------------------------
+git switch -c feature1
+echo "Ceci est une description du projet" >> README.md
+git add README.md
+git commit -m "Ajout d'une description du projet dans feature1"
+
+------------------------------------------------------------
+4. Modification sur develop + merge feature1 :
+------------------------------------------------------------
+git switch develop
+git add README.md
+git commit -m "Ajout d'une ligne sur develop avant merge de f1"
+git merge feature1
+
+Git indique "Déjà à jour" donc pas de merge explicite
+Pour forcer un commit de merge :
+git switch -c feature1-alt <hash du commit>a2d97d1
+echo "Ajout temporaire dans feature1-alt" >> README.md
+git add README.md
+git commit -m "Ajout temporaire pour forcer le merge"
+git switch develop
+git merge feature1-alt
+
+------------------------------------------------------------
+5. Création de feature2 :
+------------------------------------------------------------
+git switch develop
+git switch -c feature2
+echo "# TP2 - AgnettiDylan - Gestion des branches" > README.md
+git add README.md
+git commit -m "Modification du titre dans feature2"
+
+------------------------------------------------------------
+6. Création de feature3 :
+------------------------------------------------------------
+git switch develop
+git switch -c feature3
+echo "# TP2 - Gestion des branches et fusions" > README.md
+git add README.md
+git commit -m "Modification du titre dans feature3"
+
+------------------------------------------------------------
+7. Merge de feature2 puis feature3 sur develop :
+------------------------------------------------------------
+git switch develop
+git merge feature2
+git merge feature3
+il y a un conflit détecté sur le titre, résolution manuelle en gardant celui de feature3
+
+------------------------------------------------------------
+8. Rebase - Création de feature4 et commits :
+------------------------------------------------------------
+git switch develop
+git switch -c feature4
+echo "Cette phrase concerne la partie rebase du TP2." >> README.md
+git add README.md
+git commit -m "Ajout dans README.md - partie rebase"
+git add README.md
+git commit -m "Ajout dans README.md - mention feature4"
+echo "Fin des modifications de la feature f4." >> README.md
+git add README.md
+git commit -m "Ajout dans README.md - dernière ligne feature4"
+
+------------------------------------------------------------
+9. Rebase interactif :
+------------------------------------------------------------
+git rebase -i HEAD~3
+squash des deux derniers commits dans le premier
+message final gardé : "Ajout dans README.md - partie rebase"
+
+------------------------------------------------------------
+10. Rebase develop sur feature4 :
+------------------------------------------------------------
+git switch develop
+gedit README.md
+résolution du conflit : conservation du titre develop et contenu de feature4
+git add README.md
+git rebase --continue
+
+------------------------------------------------------------
+11. Explication de merge :
+------------------------------------------------------------
+La commande `git merge <branche>` permet de fusionner l’historique de deux branches et 
+elle crée un commit de fusion si les branches ont divergé, et conserve l’ordre des commits.
+
+------------------------------------------------------------
+12. Explication de rebase :
+------------------------------------------------------------
+La commande `git rebase <branche> ca réécrit l’historique de la branche courante
+pour y mettre les commits de la branche cible linéairement elle est utile
+pour un historiqueclair sans commits de merge multiples
+
+Dans ce TP, le rebase a été utilisé pour :
+fusionner plusieurs commits (squash)
+insérer proprement le travail de feature4 dans develop
+
+------------------------------------------------------------
